@@ -91,3 +91,8 @@ ENV/
 # Data
 notMNIST.pickle
 *.zip
+
+notMNIST_large.tar.gz
+notMNIST_large/
+notMNIST_small.tar.gz
+notMNIST_small/
