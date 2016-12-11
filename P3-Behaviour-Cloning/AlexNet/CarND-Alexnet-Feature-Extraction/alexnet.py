@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 
-net_data = np.load("bvlc-alexnet.npy", encoding="latin1").item()
+net_data = np.load("model/bvlc-alexnet.npy", encoding="latin1").item()
 
 
 def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w,  padding="VALID", group=1):
