@@ -6,6 +6,10 @@ import numpy as np
 import math
 
 
+config = tf.ConfigProto()
+config.gpu_options.allow_growth=True
+
+
 # TODO: Load traffic signs data.
 with open('model/train.p', mode='rb') as f:
     train_data = pickle.load(f)
@@ -29,7 +33,7 @@ NUM_ITERATIONS_PER_EPOCH = math.ceil(X_train.shape[0]/BATCH_SIZE)
 
 # TODO: Define placeholders and resize operation.
 x = tf.placeholder(tf.float32, (None, 32, 32, 3))
-resized = tf.image.resize_images(x, (227, 227))
+resized = tf.image.resize_images(x, 227, 227)
 
 y_true = tf.placeholder(tf.float32, shape=[None, n_classes])
 
@@ -63,7 +67,7 @@ def accuracy(predictions, true_values):
 
 # TODO: Train and evaluate the feature extraction model.
 
-with tf.Session() as session:
+with tf.Session(config=config) as session:
     session.run(tf.initialize_all_variables())
 
     for epoch in range(NUM_EPOCHS):
@@ -71,7 +75,7 @@ with tf.Session() as session:
         for idx in range(0, X_train.shape[0], BATCH_SIZE):
             print("Epoch %d, Iteration %d" %(epoch, idx))
             X_batch = X_train[idx: idx + BATCH_SIZE]
-            y_batch = y_val[idx: idx + BATCH_SIZE]
+            y_batch = y_train[idx: idx + BATCH_SIZE]
 
             feed_dict = {x: X_batch, y_true: y_batch}
 
