@@ -21,13 +21,15 @@ n_classes = len(set(y_train))
 # TODO: Split data into training and validation sets.
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, train_size=0.75, stratify=y_train)
 
+print(X_val.shape)
+
 def encode_labels(labels):
     return (np.arange(n_classes) == labels[:,None]).astype(np.float)
 
 y_train = encode_labels(y_train)
 y_val = encode_labels(y_val)
 
-NUM_EPOCHS = 20
+NUM_EPOCHS = 10
 BATCH_SIZE = 128
 NUM_ITERATIONS_PER_EPOCH = math.ceil(X_train.shape[0]/BATCH_SIZE)
 
@@ -81,11 +83,15 @@ with tf.Session(config=config) as session:
 
             session.run([optimizer], feed_dict=feed_dict)
 
-        training_cost, training_pred = session.run([cost, probs], feed_dict={x: X_train, y_true: y_train})
-        print("Training Accuracy: %.3f, Cost: %.3f for epoch %d" %(accuracy(training_pred, y_train), training_cost, epoch))
+        #training_cost, training_pred = session.run([cost, probs], feed_dict={x: X_train, y_true: y_train})
+        #print("Training Accuracy: %.3f, Cost: %.3f for epoch %d" %(accuracy(training_pred, y_train), training_cost, epoch))
+    total_val_acc = 0
+    for idx in range(0, X_val.shape[0], BATCH_SIZE):
+        X_val_batch = X_val[idx: idx + BATCH_SIZE]
+        y_val_batch = y_val[idx: idx + BATCH_SIZE]            
+        val_pred = session.run(probs, feed_dict={x: X_val_batch, y_true: y_val_batch})
+        total_val_acc += accuracy(val_pred, y_val_batch)
 
-    val_cost, val_pred = session.run([cost, probs], feed_dict={x: X_val, y_true: y_val})
-    print("Training Accuracy: %.3f, Cost: %.3f" %(accuracy(val_pred, y_val), val_cost))
-
+    print("Validation Accuracy: %.3f" % (total_val_acc/(X_val.shape[0]/BATCH_SIZE)) )
 
 
