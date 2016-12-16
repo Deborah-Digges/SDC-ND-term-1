@@ -6,9 +6,9 @@
 The car will just sit there until your Python server connects to it and provides it steering angles. Here’s how you start your Python server:
 
 1. Install Python Dependencies with Anaconda (conda install …)
-    -  numpy
-    - flask-socketio
-    - eventlet
+    - numpy
+    - flask-socketio: `conda install -c conda-forge flask-socketio`
+    - eventlet: `conda install -c conda-forge eventlet`
     - pillow
     - h5py
 
