@@ -46,7 +46,7 @@ def pre_process(image):
 
 def flatten(image):
     
-    return image.reshape(-1, image.shape[0] * image.shape[1])
+    return image.reshape((1, image.shape[0], image.shape[1], 1))
 
 @sio.on('telemetry')
 def telemetry(sid, data):
