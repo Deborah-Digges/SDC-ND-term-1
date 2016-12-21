@@ -42,6 +42,8 @@ def pre_process(image):
     a = -0.5
     
     image = ((b-a) * (image - data_min)/(data_max - data_min)) + a
+    rows_to_crop = int(image.shape[0] * 0.3)
+    image = image[rows_to_crop:, :]
     return cv2.resize(image, (0,0), fx=0.5, fy=0.5) 
 
 def flatten(image):
