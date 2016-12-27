@@ -25,6 +25,9 @@ sio = socketio.Server()
 app = Flask(__name__)
 model = None
 prev_image_array = None
+mean = 0
+sigma = 0.0000001
+num_channels = 1
 
 def pre_process(image):
     """
@@ -35,21 +38,28 @@ def pre_process(image):
     """
     
     image = image.reshape((image.shape[1], image.shape[2], image.shape[3]))
+    
     image = np.mean(image, axis=2)
+    
     data_min = np.min(image)
     data_max = np.max(image)
     b = 0.5
     a = -0.5
-    
     image = ((b-a) * (image - data_min)/(data_max - data_min)) + a
+    
     rows_to_crop_top = int(image.shape[0] * 0.3)
     rows_to_crop_bottom = int(image.shape[0] * 0.1)
-    image = image[rows_to_crop_top:image.shape[0] - rows_to_crop_bottom, :]
+    image = image[rows_to_crop_top:image.shape[0] - rows_to_crop_bottom, :]    
+    
+    row,col= image.shape
+    gauss = np.random.normal(mean,sigma,(row,col))
+    image = image + gauss
+    
     return cv2.resize(image, (0,0), fx=0.5, fy=0.5) 
 
 def flatten(image):
     
-    return image.reshape((1, image.shape[0], image.shape[1], 1))
+    return image.reshape((1, image.shape[0], image.shape[1], num_channels))
 
 @sio.on('telemetry')
 def telemetry(sid, data):
