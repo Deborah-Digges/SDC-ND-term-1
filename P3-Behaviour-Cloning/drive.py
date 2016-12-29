@@ -21,6 +21,7 @@ import tensorflow as tf
 tf.python.control_flow_ops = tf
 
 from utils import get_pre_processed_image
+import matplotlib.pyplot as plt
 
 sio = socketio.Server()
 app = Flask(__name__)
@@ -39,7 +40,6 @@ def pre_process(image):
     """
     
     image = image.reshape((image.shape[1], image.shape[2], image.shape[3]))
-    
     return get_pre_processed_image(image, num_channels)
 
 def flatten(image):
@@ -59,7 +59,8 @@ def telemetry(sid, data):
     image = Image.open(BytesIO(base64.b64decode(imgString)))
     image_array = np.asarray(image)
     transformed_image_array = image_array[None, :, :, :]
-    transformed_image_array = flatten(pre_process(transformed_image_array))
+    pre_processed_image = pre_process(transformed_image_array)
+    transformed_image_array = flatten(pre_processed_image)
     
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
