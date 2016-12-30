@@ -8,8 +8,7 @@ def pre_process(image):
         - convert to grayscale
         - resize image to half it's original size
     """
-    
-    #image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
     #image = np.mean(image, axis=2)
     
 #     data_min = np.min(image)
