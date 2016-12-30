@@ -20,7 +20,7 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 import tensorflow as tf
 tf.python.control_flow_ops = tf
 
-from utils import get_pre_processed_image
+from utils import pre_process as pre_process_util
 import matplotlib.pyplot as plt
 
 sio = socketio.Server()
@@ -33,17 +33,13 @@ num_channels = 3
 
 def pre_process(image):
     """
-        image: input image
-        
-        - convert to grayscale
-        - resize image to half it's original size
+        Reshape image from the simulator which is 4d
+        Call the pre-process function
     """
-    
     image = image.reshape((image.shape[1], image.shape[2], image.shape[3]))
-    return get_pre_processed_image(image, num_channels)
+    return pre_process_util(image)
 
-def flatten(image):
-    
+def reshape(image):
     return image.reshape((1, image.shape[0], image.shape[1], num_channels))
 
 @sio.on('telemetry')
@@ -59,8 +55,14 @@ def telemetry(sid, data):
     image = Image.open(BytesIO(base64.b64decode(imgString)))
     image_array = np.asarray(image)
     transformed_image_array = image_array[None, :, :, :]
+    
+    # Pre-process
     pre_processed_image = pre_process(transformed_image_array)
-    transformed_image_array = flatten(pre_processed_image)
+    transformed_image_array = reshape(pre_processed_image)
+    
+    # Debug statements
+    """plt.imshow(pre_processed_image);
+    plt.show();"""
     
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
