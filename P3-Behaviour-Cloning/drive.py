@@ -61,7 +61,8 @@ def telemetry(sid, data):
     transformed_image_array = image_array[None, :, :, :]
     pre_processed_image = pre_process(transformed_image_array)
     transformed_image_array = flatten(pre_processed_image)
-    
+    """plt.imshow(pre_processed_image);
+    plt.show();"""
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
     
