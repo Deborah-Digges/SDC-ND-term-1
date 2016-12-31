@@ -6,7 +6,6 @@ def pre_process(image, top_prop=0.35, bottom_prop=0.1):
         - Crop the top `top_prop` and the bottom `bottom_prop` of the image
         - Resize the image to half of it's original size
     """
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
     rows_to_crop_top = int(image.shape[0] * 0.35)
     rows_to_crop_bottom = int(image.shape[0] * 0.1)
     image = image[rows_to_crop_top:image.shape[0] - rows_to_crop_bottom, :]    
