@@ -63,7 +63,7 @@ def telemetry(sid, data):
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
     
-    if(abs(steering_angle * 25) > 5):
+    if(abs(steering_angle * 25) > 4):
         plt.ion();
         plt.imshow(pre_processed_image);
         plt.savefig(str(steering_angle) + ".png");
