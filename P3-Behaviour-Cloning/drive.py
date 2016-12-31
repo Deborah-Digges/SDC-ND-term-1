@@ -58,14 +58,16 @@ def telemetry(sid, data):
     
     # Pre-process
     pre_processed_image = pre_process(transformed_image_array)
-    transformed_image_array = reshape(pre_processed_image)
-    
-    # Debug statements
-    """plt.imshow(pre_processed_image);
-    plt.show();"""
+    transformed_image_array = reshape(pre_processed_image)   
     
     # This model currently assumes that the features of the model are just the images. Feel free to change this.
     steering_angle = float(model.predict(transformed_image_array, batch_size=1))
+    
+    if(abs(steering_angle * 25) > 5):
+        plt.ion();
+        plt.imshow(pre_processed_image);
+        plt.savefig(str(steering_angle) + ".png");
+    
     
     # The driving model currently just outputs a constant throttle. Feel free to edit this.
     throttle = 0.2
