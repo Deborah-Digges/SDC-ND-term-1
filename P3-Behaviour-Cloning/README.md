@@ -94,19 +94,19 @@ The data set was developed with all the following images
 
 1. Center image
 
-![center][../images/center.png]
+![center](../images/center.png)
 
 2. Pre-processed Center image
 
-![pre processed center][../images/pre-center.png]
+![pre processed center](../images/pre-center.png)
 
 3. Blurred Center image
 
-![blurred center][../images/center-blur.png]
+![blurred center](../images/center-blur.png)
 
 4. Noisy Center image
 
-![noisy center][../images/center-noise.png]
+![noisy center](../images/center-noise.png)
 
 
 ## Video Footage
