@@ -108,6 +108,9 @@ The data set was developed with all the following images
 
 ![noisy center](images/center-noise.png)
 
+5. Flipped Center image
+
+![flipped center](images/center-flipped.png)
 
 ## Video Footage
 
