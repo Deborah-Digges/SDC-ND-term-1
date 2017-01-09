@@ -92,23 +92,23 @@ The data set was developed with all the following images
 
 ### Examples:
 
-1. Center image
+#### Center image
 
 ![center](images/center.png)
 
-2. Pre-processed Center image
+#### Pre-processed Center image
 
 ![pre processed center](images/pre-center.png)
 
-3. Blurred Center image
+#### Blurred Center image
 
 ![blurred center](images/center-blur.png)
 
-4. Noisy Center image
+#### Noisy Center image
 
 ![noisy center](images/center-noise.png)
 
-5. Flipped Center image
+#### Flipped Center image
 
 ![flipped center](images/center-flipped.png)
 
