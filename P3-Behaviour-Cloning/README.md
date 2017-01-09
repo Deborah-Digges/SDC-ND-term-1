@@ -15,7 +15,7 @@
 
 The model is very similar to the NVIDIA model with a few additional layers and dropout added to the fully connected layers for preventing overfitting:
 
-![model][../images/p3.png]
+![model](images/p3.png)
 
 - CONV: Convolutional Layer
 - ELU: Exponential Linear Unit
