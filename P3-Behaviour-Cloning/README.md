@@ -19,7 +19,7 @@ The model is very similar to the NVIDIA model with a few additional layers and d
 
 - CONV: Convolutional Layer
 - ELU: Exponential Linear Unit
-- FC: Fully Connected Layer
+- FC: Fully Connected Layer with ELU activation and dropout of 0.5
 
 Details of the dimensions of each layer can be seen in the code snippet below:
 
