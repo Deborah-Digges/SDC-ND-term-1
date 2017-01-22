@@ -1,5 +1,2 @@
 *.mp4
-camera_cal
-output_images
-test_images
 .ipynb_checkpoints
